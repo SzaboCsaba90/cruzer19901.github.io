@@ -1,8 +1,8 @@
-let clickedBtns=[]
+let clickedBtns = [];
 
 function btnClick(btn){
-  if (btn.value != '='){
     clickedBtns.push(btn.value);
+
     if (document.getElementById("operation").innerHTML == "&nbsp;") {
       document.getElementById("operation").innerHTML = btn.value;
     }
@@ -13,37 +13,53 @@ function btnClick(btn){
     if (document.getElementById("operation").innerHTML.length > 10) {
       substringOperation();
     }
-  
 
-  }
-  else{
-    document.getElementById("result").value = processInput(clickedBtns);
-    clickedBtns = [];
-    document.getElementById("operation").innerHTML = "&nbsp;";  
-  }
+    if (document.getElementById("operation").innerHTML.charAt(document.getElementById("operation").innerHTML.length - 2) == '=') {
+      document.getElementById("operation").innerHTML = btn.value;
+    }
+
+    if (btn.value == "=") {
+      document.getElementById("result").value = processClickedBtns();
+    }
 }
 
 function substringOperation(){
-  var str = document.getElementById("operation").innerHTML
-  var res = str.substring(1)
-  document.getElementById("operation").innerHTML = res;
+  var operationContent = document.getElementById("operation").innerHTML
+  var operationContentSubstring = operationContent.substring(1)
+  document.getElementById("operation").innerHTML = operationContentSubstring;
 }
 
-function processInput(clickedBtns){
+function processClickedBtns(){
   let number1 = []
   let number2 = []
   let operator = null
   
-  for (i=0; i<clickedBtns.length; i++){
+  for (i=0; i<clickedBtns.length; i++) {
     if (isNaN(clickedBtns[i])) {
-      operator = clickedBtns[i];
-    }  
+      if (clickedBtns[i] != "=") {
+        if (operator != null) {
+          number1 = calculateResult(
+            parseInt(number1.join('')), 
+            operator, 
+            parseInt(number2.join(''))
+          ).toString().split('');
+          number2 = [];
+        }
+        operator = clickedBtns[i];
+      }      
+    }
     else if (operator == null) {
-      number1.push(clickedBtns[i]);
-    } else {
+      number1.push(clickedBtns[i]); 
+    } 
+    else {
       number2.push(clickedBtns[i]);
     }
   }
+  console.log(number1);
+  console.log(operator);
+  console.log(number2);
+
+  clickedBtns = [];
 
   return calculateResult(
     parseInt(number1.join('')), 

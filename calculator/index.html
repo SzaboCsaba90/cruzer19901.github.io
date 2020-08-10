@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="calculator.css">
-    <script src="calculator.js"></script>
     <title>Document</title>
 </head>
 <body>
     <p>Számológép</p>
+    
+    <p id="operation">&nbsp;</p>
     <p><input type="text" id="result" value="0" readonly></p>   
     <p class="calcbtncont">   
         <input type="button" class="smallbtn" id="button7" value="7" onclick="btnClick(this)">
@@ -31,7 +32,9 @@
         <input type="button" id="button0" value="0" onclick="btnClick(this)">
         <input type="button" class="smallbtn" id="equals" value="=" onclick="btnClick(this)">
     </p>            
-         
+
+
+    <script src="calculator_vpas.js"></script>         
     
     
         

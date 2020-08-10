@@ -8,7 +8,8 @@
     -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
             box-sizing: border-box;
-}
+    text-align: right;
+        }
 
 .smallbtn {
     width: 23px;
@@ -20,4 +21,11 @@ input[type=button] {
 
 .calcbtncont {
     font-size: 0px;
+}
+
+#operation {
+    font-size: 10px;
+    text-align: right;
+    width: 104px;
+    margin: 2px;
 }

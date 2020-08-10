@@ -3,12 +3,30 @@ let clickedBtns=[]
 function btnClick(btn){
   if (btn.value != '='){
     clickedBtns.push(btn.value);
+    if (document.getElementById("operation").innerHTML == "&nbsp;") {
+      document.getElementById("operation").innerHTML = btn.value;
+    }
+    else {
+      document.getElementById("operation").innerHTML += btn.value;
+    } 
+    
+    if (document.getElementById("operation").innerHTML.length > 10) {
+      substringOperation();
+    }
+  
+
   }
   else{
     document.getElementById("result").value = processInput(clickedBtns);
     clickedBtns = [];
+    document.getElementById("operation").innerHTML = "&nbsp;";  
   }
-  console.log(clickedBtns);
+}
+
+function substringOperation(){
+  var str = document.getElementById("operation").innerHTML
+  var res = str.substring(1)
+  document.getElementById("operation").innerHTML = res;
 }
 
 function processInput(clickedBtns){
@@ -27,7 +45,11 @@ function processInput(clickedBtns){
     }
   }
 
-  return calculateResult(parseInt(number1.join('')), operator, parseInt(number2.join('')));
+  return calculateResult(
+    parseInt(number1.join('')), 
+    operator, 
+    parseInt(number2.join(''))
+  );
 }
 
 function calculateResult(number1, operator, number2){

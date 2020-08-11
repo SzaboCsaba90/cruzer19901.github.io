@@ -3,6 +3,10 @@ let clickedBtns = [];
 function btnClick(btn){
     clickedBtns.push(btn.value);
 
+    if (van_eredmeny && !isNaN(btn.value)){
+      clickedBtns = [btn.value];
+    }
+
     if (document.getElementById("operation").innerHTML == "&nbsp;") {
       document.getElementById("operation").innerHTML = btn.value;
     }
@@ -14,12 +18,13 @@ function btnClick(btn){
       substringOperation();
     }
 
-    if (document.getElementById("operation").innerHTML.charAt(document.getElementById("operation").innerHTML.length - 2) == '=') {
-      document.getElementById("operation").innerHTML = btn.value;
-    }
+    // if (document.getElementById("operation").innerHTML.charAt(document.getElementById("operation").innerHTML.length - 2) == '=') {
+    //   document.getElementById("operation").innerHTML = btn.value;
+    // }
 
     if (btn.value == "=") {
       document.getElementById("result").value = processClickedBtns();
+      document.getElementById("operation").innerHTML += document.getElementById("result").value;
     }
 }
 
@@ -46,7 +51,7 @@ function processClickedBtns(){
           number2 = [];
         }
         operator = clickedBtns[i];
-      }      
+      }
     }
     else if (operator == null) {
       number1.push(clickedBtns[i]); 
@@ -55,17 +60,16 @@ function processClickedBtns(){
       number2.push(clickedBtns[i]);
     }
   }
-  console.log(number1);
-  console.log(operator);
-  console.log(number2);
 
-  clickedBtns = [];
-
-  return calculateResult(
+  result = calculateResult(
     parseInt(number1.join('')), 
     operator, 
     parseInt(number2.join(''))
   );
+
+  clickedBtns = result.toString().split('');
+
+  return result;
 }
 
 function calculateResult(number1, operator, number2){

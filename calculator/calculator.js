@@ -1,10 +1,12 @@
 let clickedBtns = [];
+let resultCalculated = false;
 
 function btnClick(btn){
     clickedBtns.push(btn.value);
 
-    if (van_eredmeny && !isNaN(btn.value)){
+    if (resultCalculated && !isNaN(btn.value)){
       clickedBtns = [btn.value];
+      document.getElementById("operation").innerHTML = '';
     }
 
     if (document.getElementById("operation").innerHTML == "&nbsp;") {
@@ -18,13 +20,13 @@ function btnClick(btn){
       substringOperation();
     }
 
-    // if (document.getElementById("operation").innerHTML.charAt(document.getElementById("operation").innerHTML.length - 2) == '=') {
-    //   document.getElementById("operation").innerHTML = btn.value;
-    // }
-
     if (btn.value == "=") {
       document.getElementById("result").value = processClickedBtns();
       document.getElementById("operation").innerHTML += document.getElementById("result").value;
+      resultCalculated = true
+    } 
+    else {
+      resultCalculated = false
     }
 }
 
@@ -73,15 +75,14 @@ function processClickedBtns(){
 }
 
 function calculateResult(number1, operator, number2){
-  if (operator == '+'){
-    return number1 + number2;
-  }
-  else if (operator == '-'){
-    return number1 - number2;
-  }
-  else if (operator == '×'){
-    return number1 * number2;
-  }
+  switch (operator) {
+    case '+':
+      return number1 + number2;
+    case '-':
+      return number1 - number2;
+    case '×':
+      return number1 * number2;
+  } 
 
   return "ERROR";
 }

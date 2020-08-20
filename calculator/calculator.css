@@ -2,7 +2,7 @@
     width: 77px;
 }
 
-#result {
+input#result {
     width: 104px;
     margin: 2px;
     -webkit-box-sizing: border-box;
